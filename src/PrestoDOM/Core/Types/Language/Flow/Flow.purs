@@ -11,6 +11,7 @@ import Presto.Core.Types.Language.Flow (getLogFields)
 import PrestoDOM.Core as PrestoDOM
 import PrestoDOM.Types.Core (class Loggable, ScopedScreen, Controller, Screen)
 import PrestoDOM.Utils (addTime2)
+import React.Navigation.Navigate (navigateToScreen, navigateToOverlayScreen)
 
 initUI :: forall a. Flow a Unit
 initUI  = do
@@ -28,13 +29,16 @@ initUIWithScreen
 initUIWithScreen screen =
   doAff do PrestoDOM.initUIWithScreen "default" Nothing (mapToScopedScreen screen)
 
-runScreen :: forall action state retType a. Show action => Loggable action => Screen action state retType -> Flow a retType
-runScreen screen = do
-  _ <- doAff $ liftEffect $ addTime2 "Process_Eval_End"
-  _ <- doAff $ liftEffect $ addTime2 "Render_runScreen_Start"
-  PrestoDOM.setScreenInLog Nothing screen.name
-  json <- getLogFields
-  doAff $ PrestoDOM.runScreen (mapToScopedScreen screen) json
+runScreen :: forall action state retType a. Show action => Loggable action => ScopedScreen action state retType -> Flow a retType
+runScreen screen = navigateToScreen screen
+
+-- runScreen :: forall action state retType a. Show action => Loggable action => Screen action state retType -> Flow a retType
+-- runScreen screen = do
+--   _ <- doAff $ liftEffect $ addTime2 "Process_Eval_End"
+--   _ <- doAff $ liftEffect $ addTime2 "Render_runScreen_Start"
+--   PrestoDOM.setScreenInLog Nothing screen.name
+--   json <- getLogFields
+--   doAff $ PrestoDOM.runScreen (mapToScopedScreen screen) json
 
 runScreenWithNameSpace :: forall action state retType a. Show action => Loggable action => ScopedScreen action state retType -> Flow a retType
 runScreenWithNameSpace screen = do
@@ -63,10 +67,13 @@ showScreen screen = do
   doAff $ PrestoDOM.showScreen (mapToScopedScreen screen) json
 
 showScreenWithNameSpace :: forall action state retType a. Show action => Loggable action => ScopedScreen action state retType -> Flow a retType
-showScreenWithNameSpace screen = do
-  PrestoDOM.setScreenInLog screen.parent screen.name
-  json <- getLogFields
-  doAff $ PrestoDOM.showScreen screen json
+showScreenWithNameSpace screen = navigateToOverlayScreen screen
+
+-- showScreenWithNameSpace :: forall action state retType a. Show action => Loggable action => ScopedScreen action state retType -> Flow a retType
+-- showScreenWithNameSpace screen = do
+--   PrestoDOM.setScreenInLog screen.parent screen.name
+--   json <- getLogFields
+--   doAff $ PrestoDOM.showScreen screen json
 
 runController :: forall action state retType a. Show action => Loggable action => Controller action state retType -> Flow a retType
 runController controller = do

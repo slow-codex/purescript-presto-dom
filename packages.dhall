@@ -17,7 +17,7 @@ in  upstream
             , "web-html"
             ]
         , repo = "https://github.com/juspay/purescript-halogen-vdom.git"
-        , version = "update/github-purescript-halogen-vdom-repo"
+        , version = "fork/update/github-purescript-halogen-vdom-repo"
         }
   with tracker =
         { dependencies =
@@ -110,4 +110,57 @@ in  upstream
           ]
         , repo = "https://github.com/juspay/hyper-decoder.git"
         , version = "nammayatri"
+      }
+  with purs-react =
+    { dependencies =
+          [ "aff"
+          , "avar"
+          , "console"
+          , "debug"
+          , "effect"
+          , "either"
+          , "exceptions"
+          , "foreign"
+          , "foreign-object"
+          , "maybe"
+          , "prelude"
+          , "record"
+          , "tuples"
+          , "unsafe-coerce"
+          , "react-basic-hooks"
+          ]
+        , repo = "ssh://git@ssh.bitbucket.juspay.net/picaf/purs-react.git"
+        , version = "namma-react"
+      }
+  with react-basic-hooks =
+    { dependencies =
+          [ "aff"
+          , "aff-promise"
+          , "bifunctors"
+          , "console"
+          , "control"
+          , "datetime"
+          , "effect"
+          , "either"
+          , "exceptions"
+          , "foldable-traversable"
+          , "functions"
+          , "indexed-monad"
+          , "integers"
+          , "maybe"
+          , "newtype"
+          , "now"
+          , "nullable"
+          , "ordered-collections"
+          , "prelude"
+          , "react-basic"
+          , "refs"
+          , "tuples"
+          , "type-equality"
+          , "unsafe-coerce"
+          , "unsafe-reference"
+          , "web-html"
+          ]
+        , repo = "ssh://git@ssh.bitbucket.juspay.net/~sridatta.yalla_juspay.in/purescript-react-basic-hooks.git"
+        , version = "b9dff0ab3711caf67bcae94fe008f3ac993e5abd"
       }
